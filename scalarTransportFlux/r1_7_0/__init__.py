@@ -111,11 +111,6 @@ from Foam import FOAM_VERSION
 if FOAM_VERSION( ">=", "010700" ):
    if __name__ == "__main__" :
       argv = sys.argv
-      if len( argv ) > 1 and argv[ 1 ] == "-test":
-         argv = None
-         test_dir= os.path.join( os.environ[ "PYFOAM_TESTING_DIR" ],'cases', 'propogated', 'r1.6', 'basic', 'scalarTransportFoam', 'pitzDaily' )
-         argv = [ __file__, "-case", test_dir ]
-         pass
       os._exit( main_standalone( len( argv ), argv ) )
       pass
    pass
@@ -124,8 +119,6 @@ else:
    ext_Info()<< "\nTo use this solver, It is necessary to SWIG OpenFoam1.7.0 or higher \n "
    pass
 
-pass
-	
 	
 #--------------------------------------------------------------------------------------
 
