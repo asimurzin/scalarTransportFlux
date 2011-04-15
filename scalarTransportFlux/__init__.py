@@ -24,66 +24,40 @@
 
 
 #--------------------------------------------------------------------------------------
-import sys, os
 from Foam import FOAM_VERSION, FOAM_BRANCH_VERSION, FOAM_REF_VERSION
-if FOAM_VERSION( "<", "010600" ):
-   from Foam.OpenFOAM import ext_Info
-   ext_Info()<< "\nTo use this solver, It is necessary to SWIG OpenFoam1.6 or higher\n "
-   pass
-   
-
-#----------------------------------------------------------------------------
 if FOAM_REF_VERSION( "==", "010600" ):
-   if __name__ == "__main__" :
-      argv = sys.argv
-      if len( argv ) > 1 and argv[ 1 ] == "-test":
-         argv = None
-         test_dir= os.path.join( os.environ[ "PYFOAM_TESTING_DIR" ],'cases','propogated', 'r1.6', 'basic', 'scalarTransportFoam', 'pitzDaily' )
-         argv = [ __file__, "-case", test_dir ]
-         pass
-      from Foam.applications.solvers.basic.r1_6.scalarTransportFoam import main_standalone
-      os._exit( main_standalone( len( argv ), argv ) )
-      pass
-   else:
-      from Foam.applications.solvers.basic.r1_6.scalarTransportFoam import *
-      pass
-   pass
+    from scalarTransportFlux.r1_6 import *
+    pass
 
 
 #----------------------------------------------------------------------------
 if FOAM_BRANCH_VERSION( "dev", ">=", "010600" ):
-   if __name__ == "__main__" :
-      argv = sys.argv
-      if len( argv ) > 1 and argv[ 1 ] == "-test":
-         argv = None
-         test_dir= os.path.join( os.environ[ "PYFOAM_TESTING_DIR" ],'cases','propogated', 'r1.6', 'basic', 'scalarTransportFoam', 'pitzDaily' )
-         argv = [ __file__, "-case", test_dir ]
-         pass
-      from Foam.applications.solvers.basic.r1_6_dev.scalarTransportFoam import main_standalone
-      os._exit( main_standalone( len( argv ), argv ) )
-      pass
-   else:
-      from Foam.applications.solvers.basic.r1_6_dev.scalarTransportFoam import *
-      pass
-   pass
+    from scalarTransportFlux.r1_6_dev import *
+    pass
    
    	
 #--------------------------------------------------------------------------------------
 if FOAM_REF_VERSION( ">=", "010700" ):
-   if __name__ == "__main__" :
-      argv = sys.argv
-      if len( argv ) > 1 and argv[ 1 ] == "-test":
-         argv = None
-         test_dir= os.path.join( os.environ[ "PYFOAM_TESTING_DIR" ],'cases', 'propogated','r1.6', 'basic', 'scalarTransportFoam', 'pitzDaily' )
-         argv = [ __file__, "-case", test_dir ]
-         pass
-      from Foam.applications.solvers.basic.r1_7_0.scalarTransportFoam import main_standalone
-      os._exit( main_standalone( len( argv ), argv ) )
-      pass
-   else:
-      from Foam.applications.solvers.basic.r1_7_0.scalarTransportFoam import *
-      pass
-   pass
+    from scalarTransportFlux.r1_7_0 import *
+    pass
 
 
+#--------------------------------------------------------------------------------------
+def entry_point():
+    try:
+       import sys; argv = sys.argv
+       return main_standalone( len( argv ), argv )
+    except NameError:
+       print
+       print "There is no implementation of the current OpenFOAM version"
+       print
+       pass
+
+
+#--------------------------------------------------------------------------------------
+if __name__ == "__main__" :
+    entry_point()
+    pass
+    
+    
 #--------------------------------------------------------------------------------------
